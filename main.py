@@ -1,23 +1,18 @@
-class Animal:
-    def __init__(self,name):
-        self.name = name
+from loguru import logger
 
-    def speak(self):
-        raise NotImplementedError("Subclass must implement abstract metod.")
+from parser import Parser
 
+def main():
+    logger.add('file.log',
+                format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}',
+                rotation="3 days",
+                backtrace=True,
+                diagnose=True)
 
-class Dog(Animal):
-    def speak(self):
-        return f"{self.name} говори ГАВ!"
-
-
-class Cat(Animal):
-    def speak(self):
-        return f"{self.name} говорит МЯУ!"
+title = input("Введите название новеллы: ")
+url = input("Сделал ссылку на новеллу: ")
+logger.info (f"Пользователь ввел название {title} новеллы и ссылку {url}.")
 
 
-dog = Dog("Бобик")
-cat = Cat("Мурзик")
-
-print(dog.speak())
-print(cat.speak())
+if __name__ == '__main__':
+    main()
